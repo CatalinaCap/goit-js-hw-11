@@ -5,7 +5,7 @@ import Notiflix from 'notiflix';
 
 const ENDPOINT = 'https://pixabay.com/api/';
 const API_KEY = '45698351-55ab21370f961a120252b2ff0';
-const PER_PAGE = 10;
+const PER_PAGE = 40;
 let currentPage = 1;
 let currentQuery = '';
 

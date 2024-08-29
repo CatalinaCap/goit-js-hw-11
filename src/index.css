@@ -1,0 +1,12 @@
+.gallery {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+.search-form {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 30px;
+  border-color: blueviolet;
+}

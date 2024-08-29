@@ -5,7 +5,7 @@ import Notiflix from 'notiflix';
 
 const ENDPOINT = 'https://pixabay.com/api/';
 const API_KEY = '45698351-55ab21370f961a120252b2ff0';
-const PER_PAGE = 40;
+const PER_PAGE = 20;
 let currentPage = 1;
 let currentQuery = '';
 
@@ -19,6 +19,7 @@ const loadMoreButton = new loadMoreBtn({
 
 form.addEventListener('submit', onSearch);
 loadMoreButton.button.addEventListener('click', onLoadMore);
+window.addEventListener('scroll', onScroll);
 
 async function onSearch(event) {
   event.preventDefault();
@@ -48,13 +49,18 @@ async function onSearch(event) {
     loadMoreButton.show();
   }
 }
+show();
+this.button.classList.remove('hidden');
+setTimeout(() => this.button.classList.add('show'), 10);
 
 async function onLoadMore() {
   currentPage += 1;
   loadMoreButton.disable();
+
   const data = await fetchImages(currentQuery);
   displayImages(data.hits);
   loadMoreButton.enable();
+
   const { height: cardHeight } = document
     .querySelector('.gallery')
     .firstElementChild.getBoundingClientRect();
@@ -68,6 +74,14 @@ async function onLoadMore() {
     Notiflix.Notify.info(
       "We're sorry, but you've reached the end of search results."
     );
+  }
+}
+async function onScroll() {
+  if (
+    window.innerHeight + window.scrollY >= document.body.offsetHeight - 100 &&
+    !loadMoreButton.button.disabled
+  ) {
+    onLoadMore();
   }
 }
 
